@@ -1,6 +1,5 @@
 
 export const SearchPanel = ({users,param,setParam}) =>{
-    console.log(param.name)
     return (
         <form>
             <div>
