@@ -1,38 +1,40 @@
 import { useEffect, useState } from "react";
 
 //avoid the senario when value === 0, !!value means get value boolean
-export const isFalsy = (value) => (value === 0 ? false : !value);
+export const isFalsy = (value: any) => (value === 0 ? false : !value);
 //if no value under key, means key equal undefined, remove this key in object
-export const cleanObject = (object) => {
+export const cleanObject = (object: Object) => {
   const result = { ...object };
   Object.keys(result).forEach((key) => {
+    //@ts-ignore
     const value = result[key];
     if (isFalsy(value)) {
+      //@ts-ignore
       delete result[key];
     }
   });
   return result;
 };
 //custmize hook
-export const useMount = (callback) => {
+export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback();
   }, []);
 };
 
-export const debounce = (func, delay) => {
-  let timeout;
-  return (...param) => {
-    if (timeout) {
-      clearTimeout(timeout);
-    }
-    timeout = setTimeout(() => {
-      func(...param);
-    }, delay);
-  };
-};
-
-export const useDebounce = (value, delay) => {
+// export const debounce = (func, delay) => {
+//   let timeout;
+//   return (...param) => {
+//     if (timeout) {
+//       clearTimeout(timeout);
+//     }
+//     timeout = setTimeout(() => {
+//       func(...param);
+//     }, delay);
+//   };
+// };
+//if user do not have the param delay, define it with ?
+export const useDebounce = (value: any, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
   useEffect(() => {
     //原理跟debounce相同，useeffect的return可以视为willunmount
