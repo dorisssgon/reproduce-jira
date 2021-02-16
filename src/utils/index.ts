@@ -34,7 +34,7 @@ export const useMount = (callback: () => void) => {
 //   };
 // };
 //if user do not have the param delay, define it with ?
-export const useDebounce = (value: any, delay?: number) => {
+export const useDebounce = <V>(value: V, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
   useEffect(() => {
     //原理跟debounce相同，useeffect的return可以视为willunmount
@@ -44,4 +44,22 @@ export const useDebounce = (value: any, delay?: number) => {
     return () => clearTimeout(timeout);
   }, [value, delay]);
   return debouncedValue;
+};
+
+export const useArray = <p>(arr: p[]) => {
+  const [initialArray, setInitialValue] = useState(arr);
+  return {
+    value: initialArray,
+    clear: () => setInitialValue([]),
+    removeIndex: (num: number) => {
+      let result = initialArray.slice();
+      result.splice(num, 1);
+      setInitialValue(result);
+    },
+    add: (p: p) => {
+      let r = initialArray.slice();
+      r.push(p);
+      setInitialValue(r);
+    },
+  };
 };
