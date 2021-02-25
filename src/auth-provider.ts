@@ -10,8 +10,6 @@ export const getToken = () => window.localStorage.getItem(localStorageKey);
 //如果传{token:,name,}就直接user:User，如果传进来的是{user:{token,name}},就要{user}:{user:User}
 //传进来的是一个object，所以此user是一个jsonstingify的文件 是第二种情况，所以要用
 export const handleUserResponse = ({ user }: { user: User }) => {
-  console.log("jiankong user");
-  console.log(user);
   window.localStorage.setItem(localStorageKey, user.token || "");
   return user;
 };
